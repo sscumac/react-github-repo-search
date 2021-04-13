@@ -1,0 +1,23 @@
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 50px;
+  
+}
+
+#header button {
+  margin-left: 30px;
+}
+
+#header input {
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+#header input:focus {
+  border: 1px solid white;
+  outline: unset;
+  box-shadow: 0px 0px 0 2px #0e7e73;
+}
