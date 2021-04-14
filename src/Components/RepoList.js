@@ -1,18 +1,15 @@
 // this comoponent will be use for both lists (search results and favorites)
 
-import '../Style/RepoList.css';
+import styles from '../Style/RepoList.module.css';
+import RepoCard from './RepoCard';
+import RepoListHeader from './RepoListHeader';
 
 function RepoList(props) {
   return (
-    <div className="list-container">
+    <div className={styles.container}>
+      <RepoListHeader heading = {props.heading} />
       {props.repos.map((repo, index) => (
-        <div className="repo-card">
-          <div className="repo-name">{repo.name}</div>
-          <div className="repo-desc">{repo.description}</div>
-          <div className="repo-footer">
-            <button value="save">save</button>
-          </div>
-        </div>
+        <RepoCard repo={repo} key={index+1} addFavorite={props.addFavorite}/>
       ))}
     </div>
   );

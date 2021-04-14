@@ -1,30 +1,54 @@
 import React, { useState, useEffect } from 'react'; // hooks
-import RepoList from './Components/RepoList';
+
 import Header from './Components/Header';
+import RepoListsContainer from './Components/RepoListsContainer';
 import './App.css';
 
 function App() {
   
   const [repos, setRepos] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [searchInput, setSearchInput] = useState('vue');
+  const [placeholder, setPlaceholder] = useState('vue');
+  const [submitInput, setSubmitInput] = useState('');
   
-  async function fetchReposRequest() {
-    const url = 'https://api.github.com/search/repositories?q=vue&per_page=40'
+  
+  async function fetchReposRequest(searchInput) {
+    const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
 
     const response = await fetch(url);  // fetch API
     const responseJson = await response.json(); // convert to JSON
 
-    // console.log(responseJson);
-    setRepos(responseJson.items); // setter function for the Repos
+    if (responseJson.items) {
+      setRepos(responseJson.items); // setter function for the Repos
+    } 
   }
 
   useEffect(()=>{
-    fetchReposRequest();
-  }, []);  // useEffect hook makes sure that the API is only called when page loads
+    fetchReposRequest(searchInput);
+  }, [searchInput]);  // only runs callback (fetchRep...) when searchInput changes
+
+
+  function addFavorite(repo) {
+    const newFavoriteList = [...favorites, repo];
+    setFavorites(newFavoriteList);
+  }
+
+  function removeFavorite(repo) {
+    
+  }
 
   return (
     <div>
-      <Header />
-      <RepoList repos = {repos} />
+      <Header searchInput={searchInput} 
+              setSearchInput={setSearchInput} 
+              placeholder={placeholder} 
+              setPlaceholder={setPlaceholder} 
+              submitInput={submitInput}
+              setSubmitInput={setSubmitInput}
+      />
+      <RepoListsContainer repos={repos} favorites={favorites} addFavorite={addFavorite}/>
+      
     </div>
   );
 }

@@ -1,8 +1,4 @@
-.list-container {
-  width: 600px;
-}
-
-.repo-card {
+.card {
   border: solid 1px;
   border-radius: 10px;
   margin: 20px;
@@ -10,25 +6,24 @@
   transition: all 0.2s;
 }
 
-.repo-card:hover {
+.card:hover {
   background-color: #0A544D;
   color: white;
 }
 
-.repo-name {
+.name {
   font-weight: bold;
   padding-bottom: 10px;
 }
 
-.repo-desc {
+.desc {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.repo-footer {
+.footer {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
 }
-
