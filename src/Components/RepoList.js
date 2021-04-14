@@ -9,7 +9,12 @@ function RepoList(props) {
     <div className={styles.container}>
       <RepoListHeader heading = {props.heading} />
       {props.repos.map((repo, index) => (
-        <RepoCard repo={repo} key={index+1} addFavorite={props.addFavorite}/>
+        <RepoCard 
+          repo={repo} 
+          key={index + 1} 
+          handleFavorite={(props.heading === 'Favorites') ? props.removeFavorite : props.addFavorite}
+          buttonText={(props.heading === 'Favorites') ? 'unsave' : 'save'}
+        />
       ))}
     </div>
   );

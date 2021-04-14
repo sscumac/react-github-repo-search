@@ -24,18 +24,29 @@ function App() {
     } 
   }
 
-  useEffect(()=>{
+  useEffect(()=>{ // useEffect hook always runs when the app loads for the first time
     fetchReposRequest(searchInput);
   }, [searchInput]);  // only runs callback (fetchRep...) when searchInput changes
 
+  useEffect(() => { 
+    const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos'));
+    setFavorites(repoFavorites);
+  }, []);
+
+  function saveToLocalStorage(items) {
+    localStorage.setItem('react-favorite-repos', JSON.stringify(items));
+  }
 
   function addFavorite(repo) {
     const newFavoriteList = [...favorites, repo];
     setFavorites(newFavoriteList);
+    saveToLocalStorage(newFavoriteList);
   }
 
   function removeFavorite(repo) {
-    
+    const newFavoriteList = favorites.filter((favorite) => favorite.id !== repo.id);
+    setFavorites(newFavoriteList);
+    saveToLocalStorage(newFavoriteList);
   }
 
   return (
@@ -47,7 +58,7 @@ function App() {
               submitInput={submitInput}
               setSubmitInput={setSubmitInput}
       />
-      <RepoListsContainer repos={repos} favorites={favorites} addFavorite={addFavorite}/>
+      <RepoListsContainer repos={repos} favorites={favorites} addFavorite={addFavorite} removeFavorite={removeFavorite}/>
       
     </div>
   );

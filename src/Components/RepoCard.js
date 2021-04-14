@@ -8,8 +8,8 @@ function RepoCard(props) {
       <div className={styles.desc}>{props.repo.description}</div>
       <div className={styles.footer}>
         <Button 
-          onClick={()=>props.addFavorite(props.repo)} 
-          text={'save'}
+          onClick={() => props.handleFavorite(props.repo)} 
+          text={props.buttonText}
         />
       </div>
     </div>
