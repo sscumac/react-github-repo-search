@@ -4,6 +4,19 @@
   margin: 20px;
   padding: 30px 30px;
   transition: all 0.2s;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  width: 80px;
+}
+
+.btn:hover {
+  font-weight: bold;
 }
 
 .card:hover {

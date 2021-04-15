@@ -4,16 +4,19 @@ import styles from '../Style/RepoList.module.css';
 import RepoCard from './RepoCard';
 import RepoListHeader from './RepoListHeader';
 
+
 function RepoList(props) {
+
   return (
     <div className={styles.container}>
-      <RepoListHeader heading = {props.heading} />
+      <RepoListHeader heading = {props.heading} totalCount={props.totalCount} />
       {props.repos.map((repo, index) => (
-        <RepoCard 
+        <RepoCard
           repo={repo} 
           key={index + 1} 
-          handleFavorite={(props.heading === 'Favorites') ? props.removeFavorite : props.addFavorite}
-          buttonText={(props.heading === 'Favorites') ? 'unsave' : 'save'}
+          addFavorite={props.addFavorite}
+          removeFavorite={props.removeFavorite}
+          listType={props.heading}
         />
       ))}
     </div>

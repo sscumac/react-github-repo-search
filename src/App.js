@@ -10,27 +10,54 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [searchInput, setSearchInput] = useState('vue');
   const [placeholder, setPlaceholder] = useState('vue');
-  const [submitInput, setSubmitInput] = useState('');
+  const [submitInput, setSubmitInput] = useState('vue');
+  const [totalCountSearch, setTotalCountSearch] = useState(0);
+  const [totalCountFavorites, setTotalCountFavorites] = useState(0);
   
   
   async function fetchReposRequest(searchInput) {
-    const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
+      try {
+        const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
 
-    const response = await fetch(url);  // fetch API
-    const responseJson = await response.json(); // convert to JSON
+        const response = await fetch(url);  // await: asynchronous function is paused until the request completes.
+        const responseJson = await response.json(); // convert to JSON
 
-    if (responseJson.items) {
-      setRepos(responseJson.items); // setter function for the Repos
-    } 
-  }
+        setTotalCountSearch(responseJson.total_count);
 
-  useEffect(()=>{ // useEffect hook always runs when the app loads for the first time
+        // error handling
+        if (responseJson.total_count === 0) {
+          alert('Your search did not provide any results.');
+        }
+
+        if (responseJson.items) { // if there is a response with repos
+          setRepos(responseJson.items); 
+        } else if (!response.ok) {
+          const message = `An error has occured: ${response.status}`;
+          throw new Error(message);
+        }
+
+      } 
+      catch (error) {
+          if (error.message === "Failed to fetch") {
+            alert(`${error.message} - Please check your network.`);
+          } else {
+            alert(error.message);
+          } 
+      }
+      
+  } 
+
+  useEffect(()=>{ 
     fetchReposRequest(searchInput);
-  }, [searchInput]);  // only runs callback (fetchRep...) when searchInput changes
+  }, [searchInput]); 
 
   useEffect(() => { 
-    const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos'));
+    const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos')) || [];
     setFavorites(repoFavorites);
+    if (repoFavorites) {  
+      setTotalCountFavorites(repoFavorites.length);
+      setFavorites(repoFavorites);
+    }
   }, []);
 
   function saveToLocalStorage(items) {
@@ -41,16 +68,18 @@ function App() {
     const newFavoriteList = [...favorites, repo];
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
+    setTotalCountFavorites(favorites.length + 1);
   }
 
   function removeFavorite(repo) {
     const newFavoriteList = favorites.filter((favorite) => favorite.id !== repo.id);
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
+    setTotalCountFavorites(favorites.length - 1);
   }
 
   return (
-    <div>
+    <div className="main-container">
       <Header searchInput={searchInput} 
               setSearchInput={setSearchInput} 
               placeholder={placeholder} 
@@ -58,7 +87,13 @@ function App() {
               submitInput={submitInput}
               setSubmitInput={setSubmitInput}
       />
-      <RepoListsContainer repos={repos} favorites={favorites} addFavorite={addFavorite} removeFavorite={removeFavorite}/>
+      <RepoListsContainer repos={repos} 
+                          favorites={favorites} 
+                          addFavorite={addFavorite} 
+                          removeFavorite={removeFavorite}
+                          totalCountSearch={totalCountSearch}
+                          totalCountFavorites={totalCountFavorites}
+      />
       
     </div>
   );

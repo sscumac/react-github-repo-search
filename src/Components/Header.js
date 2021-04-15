@@ -20,7 +20,7 @@ function Header(props) {
         />
         
         <Button text={'search'} onClick={() => {
-          props.setSearchInput(props.submitInput)
+          (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput)
         }}/>
       </div>
     </div>
