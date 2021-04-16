@@ -12,11 +12,15 @@ a {
 }
 
 .btn {
-  width: 80px;
+  -webkit-appearance: none;
+  border-radius: 3px;
+  transition: all 0.2s;
 }
 
 .btn:hover {
-  font-weight: bold;
+  background: linear-gradient(
+          rgba(255, 255, 255, 0.5), 
+          rgba(255, 255, 255, 0.5));
 }
 
 .card:hover {

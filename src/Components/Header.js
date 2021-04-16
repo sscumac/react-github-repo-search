@@ -6,8 +6,9 @@ function Header(props) {
 
   return(
     <div id={styles.header}>
-      <h2>Github Repositories</h2>
+      <h1>Github Repositories</h1>
       <div className={styles.searchBar}>
+        
         <InputField
           type={'text'} 
           placeholder={props.placeholder}
@@ -19,9 +20,11 @@ function Header(props) {
           }
         />
         
-        <Button text={'search'} onClick={() => {
-          (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput)
-        }}/>
+        <Button text={'Search'} onClick={() => {
+              (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput)
+            }
+          }
+        />
       </div>
     </div>
   )

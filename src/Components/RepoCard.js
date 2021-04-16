@@ -6,13 +6,13 @@ function RepoCard(props) {
 
   const [repoCardStatus, setRepoCardStatus] = useState("unsaved");
 
-
   return(
     <div className={styles.card} onClick={() => window.open(props.repo.html_url, "_blank")}>
       <div className={styles.name}>{props.repo.name}</div>
       <div className={styles.desc}>{props.repo.description}</div>
       <div className={styles.footer}>
-        {/* Button Favorite List */}
+
+        {/* Button Search Result List */}
         {(props.listType !== "Favorites") &&
           <Button 
             onClick={(eve) =>  {
@@ -26,12 +26,13 @@ function RepoCard(props) {
                 }
               }
             }
-            text={(repoCardStatus === 'unsaved') ? 'save' : 'unsave'}
+            text={(repoCardStatus === 'unsaved') ? 'Save' : 'unsave'}
             color={(repoCardStatus === 'saved') && 'white'}
             bgcolor={(repoCardStatus === 'saved') && '#017F80'}
             className={styles.btn}
           />
         }
+
         {/* Button Favorite List */}
         {(props.listType === "Favorites") &&
           <Button
@@ -41,7 +42,7 @@ function RepoCard(props) {
                 setRepoCardStatus('unsaved');
               }
             }
-            text={'unsave'}
+            text={'Unsave'}
             color={'white'}
             bgcolor={'#017F80'}
             className={styles.btn}

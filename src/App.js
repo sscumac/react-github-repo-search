@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react'; // hooks
-
+import React, { useState, useEffect } from 'react';
 import Header from './Components/Header';
 import RepoListsContainer from './Components/RepoListsContainer';
-import './App.css';
 
 function App() {
   
@@ -19,8 +17,8 @@ function App() {
       try {
         const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
 
-        const response = await fetch(url);  // await: asynchronous function is paused until the request completes.
-        const responseJson = await response.json(); // convert to JSON
+        const response = await fetch(url);  
+        const responseJson = await response.json(); 
 
         setTotalCountSearch(responseJson.total_count);
 
@@ -29,7 +27,7 @@ function App() {
           alert('Your search did not provide any results.');
         }
 
-        if (responseJson.items) { // if there is a response with repos
+        if (responseJson.items) { 
           setRepos(responseJson.items); 
         } else if (!response.ok) {
           const message = `An error has occured: ${response.status}`;
@@ -63,6 +61,8 @@ function App() {
   function saveToLocalStorage(items) {
     localStorage.setItem('react-favorite-repos', JSON.stringify(items));
   }
+
+  // update favorite functions
 
   function addFavorite(repo) {
     const newFavoriteList = [...favorites, repo];
