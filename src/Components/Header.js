@@ -3,7 +3,6 @@ import Button from './Button'
 import InputField from './InputField'
 
 function Header(props) {
-
   return(
     <div id={styles.header}>
       <h1>Github Repositories</h1>
