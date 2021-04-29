@@ -5,8 +5,8 @@ function RepoListHeader(props) {
     <div className={styles.header}>
       <h2>{props.heading}</h2>
       {(props.heading === "Current Results") 
-        ? <p>({(props.totalCount >= 40) ? 40 : props.totalCount}/{props.totalCount})</p>
-        : <p>({(props.totalCount)})</p>
+        ? <p>({props.repos.length}/{props.totalCount})</p>
+        : <p>({(props.repos.length)})</p>
       }
     </div>
   );

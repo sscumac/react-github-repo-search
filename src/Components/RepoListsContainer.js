@@ -11,15 +11,18 @@ function RepoListsContainer(props) {
                 addFavorite={props.addFavorite}
                 removeFavorite={props.removeFavorite}
                 totalCount={props.totalCountSearch}
+                onFavorite={props.onFavorite}
+                loading={props.loading}
       /> 
       
       {/* Favorites List */}
-      {(props.totalCountFavorites > 0) &&
+      {(props.favorites.length > 0) &&
         <RepoList heading={'Favorites'}
                   repos={props.favorites}
                   removeFavorite={props.removeFavorite}
                   addFavorite={props.addFavorite}
-                  totalCount={props.totalCountFavorites}    
+                  totalCount={props.totalCountFavorites}   
+                  onFavorite={props.onFavorite} 
         />
       }
     </div>

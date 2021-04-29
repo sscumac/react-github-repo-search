@@ -3,7 +3,6 @@ import Button from './Button'
 import InputField from './InputField'
 
 function Header(props) {
-
   return(
     <div id={styles.header}>
       <h1>Github Repositories</h1>
@@ -21,7 +20,7 @@ function Header(props) {
         />
         
         <Button text={'Search'} onClick={() => {
-              (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput)
+              (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput);
             }
           }
         />

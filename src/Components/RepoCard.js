@@ -1,53 +1,43 @@
 import styles from '../Style/RepoCard.module.css'
 import Button from './Button';
-import React, { useState } from 'react';
 
 function RepoCard(props) {
 
-  const [repoCardStatus, setRepoCardStatus] = useState("unsaved");
-
   return(
     <div className={styles.card} onClick={() => window.open(props.repo.html_url, "_blank")}>
-      <div className={styles.name}>{props.repo.name}</div>
-      <div className={styles.desc}>{props.repo.description}</div>
-      <div className={styles.footer}>
+    <div className={styles.name}>{props.repo.name}</div>
+    <div className={styles.desc}>{props.repo.description}</div>
+    <div className={styles.footer}>
 
-        {/* Button Search Result List */}
-        {(props.listType !== "Favorites") &&
-          <Button 
-            onClick={(eve) =>  {
-                eve.stopPropagation();
-                if (repoCardStatus === 'unsaved') {
-                  props.addFavorite(props.repo);
-                  setRepoCardStatus('saved');
-                } else {
-                  props.removeFavorite(props.repo);
-                  setRepoCardStatus('unsaved');
-                }
-              }
+      {/* Button Search Result List */}
+      {(props.listType !== "Favorites") &&
+        <Button 
+          onClick={(eve) =>  {
+              eve.stopPropagation();
+              props.onFavorite(props.repo);
             }
-            text={(repoCardStatus === 'unsaved') ? 'Save' : 'unsave'}
-            color={(repoCardStatus === 'saved') && 'white'}
-            bgcolor={(repoCardStatus === 'saved') && '#017F80'}
-            className={styles.btn}
-          />
-        }
+          }
+          text={(props.repo.archived) ? 'unsave' : 'save'}
+          color={(props.repo.archived) && 'white'}
+          bgcolor={(props.repo.archived) && '#017F80'}
+          className={styles.btn}
+        />
+      }
 
-        {/* Button Favorite List */}
-        {(props.listType === "Favorites") &&
-          <Button
-            onClick={(eve) => {
-                eve.stopPropagation();
-                props.removeFavorite(props.repo);
-                setRepoCardStatus('unsaved');
-              }
+      {/* Button Favorite List */}
+      {(props.listType === "Favorites") &&
+        <Button
+          onClick={(eve) => {
+              eve.stopPropagation();
+              props.onFavorite(props.repo);
             }
-            text={'Unsave'}
-            color={'white'}
-            bgcolor={'#017F80'}
-            className={styles.btn}
-          />
-        }
+          }
+          text={'Unsave'}
+          color={'white'}
+          bgcolor={'#017F80'}
+          className={styles.btn}
+        />
+      }
       </div>
     </div>
   )
