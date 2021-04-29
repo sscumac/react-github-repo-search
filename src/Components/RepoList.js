@@ -6,16 +6,20 @@ import RepoListHeader from './RepoListHeader';
 function RepoList(props) {
   return (
     <div className={styles.container}>
-      <RepoListHeader heading={props.heading} totalCount={props.totalCount} />
-      {props.repos.map((repo, index) => (
-        <RepoCard
-          repo={repo} 
-          key={index + 1} 
-          addFavorite={props.addFavorite}
-          removeFavorite={props.removeFavorite}
-          listType={props.heading}
-        />
-      ))}
+      <RepoListHeader heading={props.heading} repos={props.repos} totalCount={props.totalCount} />
+      {(props.loading === true)
+          ? <p>loading results...</p>
+          : props.repos.map((repo, index) => (
+              <RepoCard
+                repo={repo} 
+                key={index + 1} 
+                addFavorite={props.addFavorite}
+                removeFavorite={props.removeFavorite}
+                listType={props.heading}
+                onFavorite={props.onFavorite}
+          />
+        ))
+      }
     </div>
   );
 };

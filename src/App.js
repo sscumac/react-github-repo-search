@@ -6,11 +6,11 @@ function App() {
   
   const [repos, setRepos] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [searchInput, setSearchInput] = useState('vue');
-  const [placeholder, setPlaceholder] = useState('vue');
-  const [submitInput, setSubmitInput] = useState('vue');
+  const [searchInput, setSearchInput] = useState('react');
+  const [placeholder, setPlaceholder] = useState('react');
+  const [submitInput, setSubmitInput] = useState('react');
   const [totalCountSearch, setTotalCountSearch] = useState(0);
-  const [totalCountFavorites, setTotalCountFavorites] = useState(0);
+  const [loading, setLoading] = useState(true);
   
   
   async function fetchReposRequest(searchInput) {
@@ -27,7 +27,8 @@ function App() {
           alert('Your search did not provide any results.');
         }
 
-        if (responseJson.items) { 
+        if (responseJson.items) {
+          setLoading(false);
           setRepos(responseJson.items); 
         } else if (!response.ok) {
           const message = `An error has occured: ${response.status}`;
@@ -43,20 +44,18 @@ function App() {
           } 
       }
       
-  } 
-
-  useEffect(()=>{ 
-    fetchReposRequest(searchInput);
-  }, [searchInput]); 
-
-  useEffect(() => { 
+  }
+  
+  function getFavorites() {
     const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos')) || [];
     setFavorites(repoFavorites);
-    if (repoFavorites) {  
-      setTotalCountFavorites(repoFavorites.length);
-      setFavorites(repoFavorites);
-    }
-  }, []);
+  }
+
+  useEffect(()=>{ 
+    setLoading(true);
+    getFavorites();
+    fetchReposRequest(searchInput);
+  }, [searchInput]); 
 
   function saveToLocalStorage(items) {
     localStorage.setItem('react-favorite-repos', JSON.stringify(items));
@@ -64,18 +63,28 @@ function App() {
 
   // update favorite functions
 
+  function handleFavorite(repo) {
+    const reposNew = [...repos];
+    const index = reposNew.indexOf(repo);
+    if (index === -1) {
+      removeFavorite(repo) 
+    } else {
+      reposNew[index].archived ? removeFavorite(repo) : addFavorite(repo);
+      reposNew[index].archived = !reposNew[index].archived;
+    }
+    setRepos(reposNew);
+  }
+
   function addFavorite(repo) {
     const newFavoriteList = [...favorites, repo];
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
-    setTotalCountFavorites(favorites.length + 1);
   }
 
   function removeFavorite(repo) {
     const newFavoriteList = favorites.filter((favorite) => favorite.id !== repo.id);
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
-    setTotalCountFavorites(favorites.length - 1);
   }
 
   return (
@@ -92,7 +101,8 @@ function App() {
                           addFavorite={addFavorite} 
                           removeFavorite={removeFavorite}
                           totalCountSearch={totalCountSearch}
-                          totalCountFavorites={totalCountFavorites}
+                          onFavorite={handleFavorite}
+                          loading={loading}
       />
       
     </div>
