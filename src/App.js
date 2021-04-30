@@ -77,8 +77,8 @@ function App() {
     if (index === -1) {
       removeFavorite(repo) 
     } else {
-      reposNew[index].archived ? removeFavorite(repo) : addFavorite(repo);
-      reposNew[index].archived = !reposNew[index].archived;
+      reposNew[index].favorite ? removeFavorite(repo) : addFavorite(repo);
+      reposNew[index].favorite = !reposNew[index].favorite;
     }
     setRepos(reposNew);
   }
