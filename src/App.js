@@ -22,6 +22,14 @@ function App() {
 
         setTotalCountSearch(responseJson.total_count);
 
+        // console.log(responseJson.items)
+        const reposWithFav = responseJson.items.map(i => {
+          i.favorite = false;
+          return i;
+        })
+
+        console.log(reposWithFav);
+
         // error handling
         if (responseJson.total_count === 0) {
           alert('Your search did not provide any results.');
@@ -30,7 +38,6 @@ function App() {
         if (responseJson.items) {
           setLoading(false);
           setRepos(responseJson.items); 
-          console.log(repos);
         } else if (!response.ok) {
           const message = `An error has occured: ${response.status}`;
           throw new Error(message);
