@@ -30,6 +30,7 @@ function App() {
         if (responseJson.items) {
           setLoading(false);
           setRepos(responseJson.items); 
+          console.log(repos);
         } else if (!response.ok) {
           const message = `An error has occured: ${response.status}`;
           throw new Error(message);
