@@ -17,9 +17,9 @@ function RepoCard(props) {
               props.onFavorite(props.repo);
             }
           }
-          text={(props.repo.archived) ? 'unsave' : 'save'}
-          color={(props.repo.archived) && 'white'}
-          bgcolor={(props.repo.archived) && '#017F80'}
+          text={(props.repo.favorite) ? 'unsave' : 'save'}
+          color={(props.repo.favorite) && 'white'}
+          bgcolor={(props.repo.favorite) && '#017F80'}
           className={styles.btn}
         />
       }

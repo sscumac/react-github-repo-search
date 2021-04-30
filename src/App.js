@@ -22,6 +22,11 @@ function App() {
 
         setTotalCountSearch(responseJson.total_count);
 
+        const reposWithFav = responseJson.items.map(i => {
+          i.favorite = false;
+          return i;
+        })
+
         // error handling
         if (responseJson.total_count === 0) {
           alert('Your search did not provide any results.');
@@ -29,8 +34,7 @@ function App() {
 
         if (responseJson.items) {
           setLoading(false);
-          setRepos(responseJson.items); 
-          console.log(repos);
+          setRepos(reposWithFav); 
         } else if (!response.ok) {
           const message = `An error has occured: ${response.status}`;
           throw new Error(message);
@@ -44,7 +48,6 @@ function App() {
             alert(error.message);
           } 
       }
-      
   }
   
   function getFavorites() {
@@ -52,11 +55,23 @@ function App() {
     setFavorites(repoFavorites);
   }
 
-  useEffect(()=>{ 
+  useEffect(() => { 
+    console.log("use effect 1")
     setLoading(true);
     getFavorites();
     fetchReposRequest(searchInput);
   }, [searchInput]); 
+
+  // useEffect(() => {
+  //   const reposNew = [...repos];
+  //   favorites.map(f => {
+  //     reposNew.map(r => {
+  //       (f.id === r.id) && (r.favorite = true);
+  //       return r;
+  //     }) 
+  //   })
+  //   setRepos(reposNew);
+  // }, [repos]);
 
   function saveToLocalStorage(items) {
     localStorage.setItem('react-favorite-repos', JSON.stringify(items));
@@ -70,8 +85,8 @@ function App() {
     if (index === -1) {
       removeFavorite(repo) 
     } else {
-      reposNew[index].archived ? removeFavorite(repo) : addFavorite(repo);
-      reposNew[index].archived = !reposNew[index].archived;
+      reposNew[index].favorite ? removeFavorite(repo) : addFavorite(repo);
+      reposNew[index].favorite = !reposNew[index].favorite;
     }
     setRepos(reposNew);
   }
