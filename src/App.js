@@ -12,7 +12,6 @@ function App() {
   const [totalCountSearch, setTotalCountSearch] = useState(0);
   const [loading, setLoading] = useState(true);
   
-  
   async function fetchReposRequest(searchInput) {
       try {
         const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
@@ -67,12 +66,10 @@ function App() {
     })
   }
   
-
   function getFavorites() {
     const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos')) || [];
     setFavorites(repoFavorites);
   }
-
 
   function saveToLocalStorage(items) {
     localStorage.setItem('react-favorite-repos', JSON.stringify(items));
