@@ -15,13 +15,14 @@ function App() {
   
   async function fetchReposRequest(searchInput) {
       try {
-        const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
+        const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=4`
 
         const response = await fetch(url);  
         const responseJson = await response.json(); 
 
         setTotalCountSearch(responseJson.total_count);
 
+        // add favorite flag to loaded results
         const reposWithFav = responseJson.items.map(i => {
           i.favorite = false;
           return i;
@@ -49,29 +50,31 @@ function App() {
           } 
       }
   }
+
+  useEffect(() => { 
+    setLoading(true);
+    fetchReposRequest(searchInput);
+    getFavorites();
+  }, [searchInput]); 
+
+
+  updateSearchWithFav();
+
+  function updateSearchWithFav() {
+    favorites.forEach(f => {
+      repos.map(r => {
+        if (f.id === r.id) r.favorite = true;
+         return r;
+      })
+    })
+  }
   
+
   function getFavorites() {
     const repoFavorites = JSON.parse(localStorage.getItem('react-favorite-repos')) || [];
     setFavorites(repoFavorites);
   }
 
-  useEffect(() => { 
-    console.log("use effect 1")
-    setLoading(true);
-    getFavorites();
-    fetchReposRequest(searchInput);
-  }, [searchInput]); 
-
-  // useEffect(() => {
-  //   const reposNew = [...repos];
-  //   favorites.map(f => {
-  //     reposNew.map(r => {
-  //       (f.id === r.id) && (r.favorite = true);
-  //       return r;
-  //     }) 
-  //   })
-  //   setRepos(reposNew);
-  // }, [repos]);
 
   function saveToLocalStorage(items) {
     localStorage.setItem('react-favorite-repos', JSON.stringify(items));
@@ -81,9 +84,12 @@ function App() {
 
   function handleFavorite(repo) {
     const reposNew = [...repos];
-    const index = reposNew.indexOf(repo);
-    if (index === -1) {
-      removeFavorite(repo) 
+    const index = reposNew.indexOf(repo); 
+    if (index === -1) { // when index cannot be found in search result list
+      removeFavorite(repo)
+      reposNew.forEach((r) => {
+        if (repo.id === r.id) return r.favorite = false;
+      })
     } else {
       reposNew[index].favorite ? removeFavorite(repo) : addFavorite(repo);
       reposNew[index].favorite = !reposNew[index].favorite;
