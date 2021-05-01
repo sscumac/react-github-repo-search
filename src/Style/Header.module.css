@@ -6,8 +6,8 @@
   padding-bottom: 50px;
 }
 
-#header button {
-  margin-left: 30px;
+.search {
+  margin-left: 20px;
 }
 
 #header input {
@@ -19,8 +19,4 @@
   border: 1px solid white;
   outline: unset;
   box-shadow: 0px 0px 0 2px #0e7e73;
-}
-
-label {
-  /* display: none; */
 }

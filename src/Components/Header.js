@@ -1,11 +1,10 @@
 import styles from '../Style/Header.module.css'
-import Button from './Button'
 import InputField from './InputField'
 
 function Header(props) {
 
-  function handleSubmit() {
-    console.log(props.submitInput);
+  function handleSubmit(eve) {
+    eve.preventDefault();
     (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput);
   }
 
@@ -27,14 +26,8 @@ function Header(props) {
               }
             />
           </label>
-          <input type="submit" value="Search" />
+          <input type="submit" value="Search"  style={{ marginLeft: 30 }}/>
         </form>
-        
-        {/* <Button text={'Search'} onClick={() => {
-              (props.submitInput === "") ? alert("Empty search - Please type something to search.") : props.setSearchInput(props.submitInput);
-            }
-          }
-        /> */}
       </div>
     </div>
   )
