@@ -15,7 +15,7 @@ function App() {
   
   async function fetchReposRequest(searchInput) {
       try {
-        const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=4`
+        const url = `https://api.github.com/search/repositories?q=${searchInput}&per_page=40`
 
         const response = await fetch(url);  
         const responseJson = await response.json(); 
@@ -57,8 +57,6 @@ function App() {
     getFavorites();
   }, [searchInput]); 
 
-
-  updateSearchWithFav();
 
   function updateSearchWithFav() {
     favorites.forEach(f => {
@@ -108,6 +106,8 @@ function App() {
     setFavorites(newFavoriteList);
     saveToLocalStorage(newFavoriteList);
   }
+
+  updateSearchWithFav();
 
   return (
     <div className="main-container">
