@@ -1,14 +1,57 @@
 .card {
-  border: solid 1px;
-  border-radius: 10px;
+  border: solid 2px;
+  border-radius: 2px;
   margin: 20px;
   padding: 30px 30px;
   transition: all 0.2s;
   cursor: pointer;
+  color: #0000ee;
+}
+
+.card:hover {
+  background-color: #e1e1ff;
 }
 
 a {
   text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.like {
+  stroke: #0000ee;
+  stroke-width: 30;
+  transition: all 1.5s;
+}
+
+.like:hover {
+  animation: like-pulse 2s infinite;
+}
+
+@keyframes like-pulse {
+  0%,
+  100% {
+    color: #e1e1ff;
+  }
+  50% {
+    color: #0000ee;
+  }
+}
+
+.remove:hover {
+  animation: remove-pulse 2s infinite;
+}
+
+@keyframes remove-pulse {
+  0%,
+  100% {
+    color: #e62041;
+  }
+  50% {
+    color: #e1e1ff;
+  }
 }
 
 .btn {
@@ -19,13 +62,9 @@ a {
 
 .btn:hover {
   background: linear-gradient(
-          rgba(255, 255, 255, 0.5), 
-          rgba(255, 255, 255, 0.5));
-}
-
-.card:hover {
-  background-color: #0A544D;
-  color: white;
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  );
 }
 
 .name {
