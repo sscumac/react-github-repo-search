@@ -1,13 +1,18 @@
 .card {
-  border: solid 1px;
-  border-radius: 10px;
+  border: solid 2px;
+  border-radius: 2px;
   margin: 20px;
   padding: 30px 30px;
   transition: all 0.2s;
   cursor: pointer;
+  color: #0000ee;
 }
 
 a {
+  text-decoration: none;
+}
+
+a:visited {
   text-decoration: none;
 }
 
@@ -19,12 +24,14 @@ a {
 
 .btn:hover {
   background: linear-gradient(
-          rgba(255, 255, 255, 0.5), 
-          rgba(255, 255, 255, 0.5));
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.5)
+  );
 }
 
 .card:hover {
-  background-color: #0A544D;
+  border: solid 2px #cf7070;
+  background-color: #cf7070;
   color: white;
 }
 
