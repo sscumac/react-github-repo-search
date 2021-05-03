@@ -5,12 +5,26 @@
   flex-direction: column;
 }
 
-@media only screen and (max-width: 480px) {
- 
-  .container {
-     width: 80%;
-     min-width: 250px;
-  }
-
+.loading {
+  animation: pulse 1s infinite;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
+@keyframes pulse {
+  0%,
+  100% {
+    color: #ffffff;
+  }
+  50% {
+    color: var(--main-black);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    width: 80%;
+    min-width: 250px;
+  }
+}

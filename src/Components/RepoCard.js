@@ -4,12 +4,12 @@ import Icon from './Icon';
 function RepoCard(props) {
 
   return(
-    <a className={styles.card} target="_blank" rel="noreferrer" href={props.repo.html_url}>
+    <a className={(props.cardType === "card") ? styles.card : styles.cardFav} target="_blank" rel="noreferrer" href={props.repo.html_url}>
       <div className={styles.name}>{props.repo.name}</div>
       <div className={styles.desc}>{props.repo.description}</div>
       <div className={styles.footer}>
 
-        {/* Button Result List */}
+        {/* Icon Result List */}
         {(props.listType !== "Favorites") &&
           <Icon onClick={(eve) =>  {
                   eve.preventDefault();
@@ -22,7 +22,7 @@ function RepoCard(props) {
           />
         } 
 
-        {/* Button Favorite List */}
+        {/* Icon Favorite List */}
         {(props.listType === "Favorites") &&
           <Icon onClick={(eve) =>  {
                     eve.preventDefault();

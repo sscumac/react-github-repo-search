@@ -12,7 +12,7 @@ function RepoList(props) {
                       loading={props.loading}
       />
       {(props.loading === true)
-          ? <p style={{ marginLeft: 20 }} >loading results...</p>
+          ? <p className={styles.loading} >loading results</p>
           : props.repos.map((repo, index) => (
               <RepoCard
                 repo={repo} 
@@ -21,6 +21,7 @@ function RepoList(props) {
                 removeFavorite={props.removeFavorite}
                 listType={props.heading}
                 onFavorite={props.onFavorite}
+                cardType={props.cardType}
           />
         ))
       }

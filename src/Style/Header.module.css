@@ -11,6 +11,10 @@
   margin-top: 50px;
 }
 
+h1 {
+  text-shadow: 4px -3px 0px #ffdc05;
+}
+
 form {
   display: flex;
   background-color: var(--main-black);
@@ -31,12 +35,12 @@ form {
 }
 
 .search:hover {
-  background-color: rgb(92, 92, 92);
+  background-color: #2a2c80;
 }
 
 #searchInput {
   -webkit-appearance: none;
-  border: 1px solid black;
+  border: 1px solid var(--main-black);
   border-radius: 2px;
   height: 30px;
   font-size: 18px;

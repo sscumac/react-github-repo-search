@@ -13,6 +13,7 @@ function RepoListsContainer(props) {
                 totalCount={props.totalCountSearch}
                 onFavorite={props.onFavorite}
                 loading={props.loading}
+                cardType={"card"}
       /> 
       
       {/* Favorites List */}
@@ -23,6 +24,7 @@ function RepoListsContainer(props) {
                   addFavorite={props.addFavorite}
                   totalCount={props.totalCountFavorites}   
                   onFavorite={props.onFavorite} 
+                  cardType={"cardFav"}
         />
       }
     </div>

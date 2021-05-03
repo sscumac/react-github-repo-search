@@ -5,7 +5,7 @@ function Header(props) {
 
   return(
     <div id={styles.header}>
-      <h1>Github Repositories</h1>
+      <h1>Github Repo Search</h1>
       <div className={styles.searchBar}>
         <Form placeholder={props.placeholder} 
               setSearchInput={props.setSearchInput} 

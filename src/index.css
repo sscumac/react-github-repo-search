@@ -16,7 +16,7 @@ code {
   display: flex;
   flex-direction: column;
   align-items: center;
-  --main-black: rgb(37, 37, 37);
+  --main-black: #000162;
   color: var(--main-black);
 }
 
