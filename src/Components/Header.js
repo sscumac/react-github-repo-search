@@ -12,6 +12,7 @@ function Header(props) {
               setSubmitInput={props.setSubmitInput}
               submitInput={props.submitInput}
               setPlaceholder={props.setPlaceholder}
+              submitClass={styles.search}
         />
       </div>
     </div>
