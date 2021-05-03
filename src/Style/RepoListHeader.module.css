@@ -6,3 +6,13 @@
   height: 70px;
   overflow: visible;
 }
+
+@media only screen and (max-width: 480px) {
+  .header {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}

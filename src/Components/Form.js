@@ -1,4 +1,5 @@
 import InputField from './InputField'
+import styles from '../Style/Header.module.css'
 
 function Form(props) {
 
@@ -10,7 +11,7 @@ function Form(props) {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="search input">
-        <InputField id="search input"
+        <InputField id={styles.searchInput}
                     type={'text'} 
                     placeholder={props.placeholder}
                     onChange={(eve) => {
@@ -23,7 +24,7 @@ function Form(props) {
       </label>
       <input type="submit" 
             value="Search"  
-            style={{ marginLeft: 30 }}
+            className={props.submitClass}
       />
     </form>
   )
