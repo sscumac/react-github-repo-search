@@ -44,6 +44,9 @@ function App() {
       catch (error) {
           if (error.message === "Failed to fetch") {
             alert(`${error.message} - Please check your network.`);
+          } else if (error.message === "Cannot read property 'map' of undefined") {
+            alert('Your search does not provide any results');
+            setLoading(false);
           } else {
             alert(error.message);
           } 
